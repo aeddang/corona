@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/color_gray_deep">
+    <LinearLayout
+        android:id="@+id/graphLines"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/graphsScroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/graphsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/graphs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.skeleton.view.graph.GraphLine
+                android:id="@+id/graphConfirmed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.skeleton.view.graph.GraphLine
+                android:id="@+id/graphDeaths"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.skeleton.view.graph.GraphLine
+                android:id="@+id/graphRecovered"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </HorizontalScrollView>
+
+
+    <TextView
+        android:id="@+id/textStartDate"
+        style="@style/font_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="-"
+        android:textColor="@color/color_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textEndDate"
+        style="@style/font_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="-"
+        android:textColor="@color/color_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loadingBar"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="@dimen/loading_small"
+        android:layout_height="@dimen/loading_small"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/sp_progress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

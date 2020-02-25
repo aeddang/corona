@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_gray_deep">
+
+    <TextView
+        android:id="@+id/textTitle"
+        style="@style/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/cp_data_box_title"
+        android:textColor="@color/color_gray"
+        app:layout_constraintEnd_toEndOf="@id/textComfirmed"
+        app:layout_constraintStart_toStartOf="@id/textComfirmed"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textComfirmed"
+        style="@style/font_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:text="-"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_heavy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+    <TextView
+        android:id="@+id/textIncrease"
+        style="@style/font_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="@dimen/margin_extra_thin"
+        android:layout_marginTop="@dimen/margin_extra_thin"
+        android:text="-"
+        android:textColor="@color/color_yellow"
+        app:layout_constraintStart_toEndOf="@id/textComfirmed"
+        app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+    <TextView
+        android:id="@+id/textIncreasePct"
+        style="@style/font_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:text="-"
+        android:textColor="@color/color_yellow"
+        app:layout_constraintStart_toStartOf="@id/textIncrease"
+        app:layout_constraintTop_toBottomOf="@id/textIncrease" />
+
+    <TextView
+        android:id="@+id/textDeathsTitle"
+        style="@style/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginTop="@dimen/margin_extra_thin"
+        android:layout_marginEnd="@dimen/margin_extra_thin"
+        android:text="@string/cp_data_box_deaths"
+        android:textColor="@color/color_gray"
+        app:layout_constraintEnd_toStartOf="@id/textDeaths"
+        app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+    <TextView
+        android:id="@+id/textRecoveredTitle"
+        style="@style/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginEnd="@dimen/margin_extra_thin"
+        android:text="@string/cp_data_box_recovered"
+        android:textColor="@color/color_gray"
+        app:layout_constraintEnd_toStartOf="@id/textRecovered"
+        app:layout_constraintTop_toBottomOf="@id/textDeathsTitle" />
+
+    <TextView
+        android:id="@+id/textDeaths"
+        style="@style/font_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:text="-"
+        android:textColor="@color/color_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textDeathsTitle" />
+
+    <TextView
+        android:id="@+id/textRecovered"
+        style="@style/font_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:text="-"
+        android:textColor="@color/color_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textRecoveredTitle" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loadingBar"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="@dimen/loading_small"
+        android:layout_height="@dimen/loading_small"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/sp_progress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/color_gray_deep">
+
+
+        <LinearLayout
+            android:id="@+id/contentBody"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_regular">
+
+            <com.ironleft.corona.component.DataBox
+                android:id="@+id/dataBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top" />
+
+            <com.ironleft.corona.component.GraphBox
+                android:id="@+id/graphBox"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/margin_medium" />
+            <ImageButton
+                android:id="@+id/btnMapDetail"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_width="@dimen/icon_regular"
+                android:layout_height="@dimen/icon_regular"
+                android:background="@drawable/effect_circle_ripple"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_add"
+                android:tint="@color/color_white"
+                android:scaleType="fitCenter"
+                />
+            <com.ironleft.corona.component.MapBox
+                android:id="@+id/mapBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/margin_thin"
+                tools:context="com.ironleft.corona.MainActivity" >
+                <fragment android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:id="@+id/mapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_gray_deep"
+                    tools:context="com.ironleft.corona.MainActivity" />
+            </com.ironleft.corona.component.MapBox>
+        </LinearLayout>
+
+</FrameLayout>

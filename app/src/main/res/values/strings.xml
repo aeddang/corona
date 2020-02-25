@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">WorldVirus\nWatch</string>
+    <string name="notice_app_exit">Press again to exit.</string>
+    <string name="notice_need_permission">If you do not grant permission, some functions are not be able to used.</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="error_data_loading">Data loading error</string>
+
+    <string name="key_google_map">AIzaSyAUTgR2I8bbVX_8XHcoMRxkLlqx4Uz6xTs</string>
+
+
+
+    <string name="page_intro">Intro</string>
+    <string name="page_data">Data</string>
+    <string name="page_map">Map</string>
+    <string name="page_news">News</string>
+    <string name="popup_webview">Webview</string>
+
+    <string name="cp_header_title">World Virus Watch</string>
+
+    <string name="cp_tab_title">COVID-19</string>
+    <string name="cp_tab_data">DATA</string>
+    <string name="cp_tab_news">NEWS</string>
+
+    <string name="cp_data_box_title">Comfirmed</string>
+    <string name="cp_data_box_deaths">Deaths</string>
+    <string name="cp_data_box_recovered">Recovered</string>
+
+    <string name="cp_map_title">Map</string>
+</resources>

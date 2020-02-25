@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">#5026A3C8</color>
+    <color name="colorPrimary">#26A3C8</color>
+    <color name="colorPrimaryDark">#084254</color>
+    <color name="colorAccent">#E87C0A</color>
+
+    <color name="color_white">#fff</color>
+    <color name="color_gray">#959595</color>å
+    <color name="color_gray_deep">#2d2b2c</color>
+    <color name="color_black">#000</color>
+    <color name="color_yellow">#ffcb05</color>
+    <color name="color_orange">#f6861f</color>
+    <color name="color_red">#bd141a</color>
+    <color name="color_red_opacity_60">#95bd141a</color>
+    <color name="color_red_opacity_50">#80bd141a</color>
+    <color name="color_red_opacity_40">#65bd141a</color>
+    <color name="color_red_opacity_30">#50bd141a</color>
+    <color name="color_red_opacity_20">#35bd141a</color>
+    <color name="color_red_opacity_10">#20bd141a</color>
+
+    <color name="color_green">#00a651</color>
+    <color name="color_green_light">#aed136</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent_black30">#50000000</color>
+    <color name="transparent_black45">#70000000</color>
+    <color name="transparent_black70">#aa000000</color>
+    <color name="transparent_black80">#cc000000</color>
+    <color name="transparent_white30">#50FFFFFF</color>
+    <color name="transparent_white45">#70FFFFFF</color>
+    <color name="transparent_white70">#aaFFFFFF</color>
+    <color name="transparent_white80">#ccFFFFFF</color>
+</resources>

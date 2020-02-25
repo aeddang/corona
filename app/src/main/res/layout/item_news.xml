@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_gray_deep"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textDesc"
+        style="@style/font_regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_marginTop="@dimen/margin_light"
+        android:text="0000"
+        android:textColor="@color/color_white"
+        />
+    <TextView
+        android:id="@+id/textDate"
+        style="@style/font_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_marginTop="@dimen/margin_extra_thin"
+        android:text="0000"
+        android:textColor="@color/color_gray"
+        />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_light"
+        android:alpha="0.4"
+        android:background="@color/color_gray" />
+</LinearLayout>
