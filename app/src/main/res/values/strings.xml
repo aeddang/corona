@@ -22,7 +22,7 @@
     <string name="cp_tab_data">DATA</string>
     <string name="cp_tab_news">NEWS</string>
 
-    <string name="cp_data_box_title">Comfirmed</string>
+    <string name="cp_data_box_title">Confirmed</string>
     <string name="cp_data_box_deaths">Deaths</string>
     <string name="cp_data_box_recovered">Recovered</string>
 

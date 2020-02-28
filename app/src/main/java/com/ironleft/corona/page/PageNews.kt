@@ -66,6 +66,7 @@ class PageNews  : RxPageFragment() {
         super.onSubscribe()
         viewModel.repo.newsDatasObservable.subscribe { datas ->
             loadingBar.visibility = View.GONE
+
             adapter.setDataArray(datas.toTypedArray())
         }.apply { disposables.add(this) }
     }
@@ -114,7 +115,14 @@ class PageNews  : RxPageFragment() {
         override fun setData(data: Any?, idx:Int){
             super.setData(data, idx)
             currentData = data as NewsData
+
+
+
+
         }
+
+
+
 
 
     }

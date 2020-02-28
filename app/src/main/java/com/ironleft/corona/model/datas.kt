@@ -43,8 +43,8 @@ data class MapData(val id:String){
     var latLng: LatLng = LatLng(0.0,0.0) ; private set
     var confirmed:Long = 0 ; private set
     var lastUpdate:String = ""
-    val unit = 10000.0
-    val limited:Long = 100
+    val unit = 1000.0
+    val limited:Long = 1000
     val colorLevel:Double
         get() {
             if(confirmed >= limited) return 1.0
