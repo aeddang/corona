@@ -30,6 +30,9 @@ class MainActivity : PageActivity<PageID>(), Rx {
 
     }
 
+
+
+
     override fun onDestroyedView() {
 
     }
