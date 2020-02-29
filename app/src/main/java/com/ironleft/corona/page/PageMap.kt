@@ -51,9 +51,7 @@ class PageMap  : RxPageFragment(){
     }
     override fun onTransactionCompleted() {
         super.onTransactionCompleted()
-
         viewModel.repo.getVirusConfirmed()
-        viewModel.repo.getGraphs()
     }
 
 

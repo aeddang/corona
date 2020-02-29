@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.*
 import com.ironleft.corona.R
 import com.ironleft.corona.model.MapData
 import com.ironleft.corona.model.VirusConfirmedData
+import com.lib.util.Log
 import com.skeleton.rx.RxFrameLayout
 import com.skeleton.view.item.ListItem
 import io.reactivex.subjects.PublishSubject
@@ -26,6 +27,9 @@ class MapBox: RxFrameLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context,attrs)
     override fun getLayoutResId(): Int { return R.layout.cp_map_box }
     private val appTag = javaClass.simpleName
+
+    val selectLocationObservable = PublishSubject.create<Marker>()
+
     private val meLocationObservable = PublishSubject.create<Location>()
     private var meLocation: Location? = null
         set(value) {
@@ -66,6 +70,13 @@ class MapBox: RxFrameLayout {
                 }
 
             })
+            googleMap?.setOnInfoWindowClickListener {
+                selectLocationObservable.onNext(it)
+            }
+            googleMap?.setOnMarkerClickListener {
+                selectLocationObservable.onNext(it)
+                false
+            }
             onMapUpdate()
         }
 
@@ -77,6 +88,7 @@ class MapBox: RxFrameLayout {
     override fun onDestroyedView() {
         googleMap = null
         virusConfirmedDatas = null
+
     }
 
 
@@ -133,6 +145,8 @@ class MapBox: RxFrameLayout {
         loadingBar.visibility = View.GONE
 
         googleMap?.let { gmap ->
+            gmap.clear()
+            //gmap.setOnCircleClickListener { Log.i(appTag, "on Circle click") }
 
             context?.let { ctx->
                 var initData: MapData? = null
@@ -149,6 +163,7 @@ class MapBox: RxFrameLayout {
 
                     gmap.addMarker(markerOption)
                     val circleOptions = CircleOptions()
+                        .clickable(true)
                         .center(map.latLng)
                         .radius(r)
                         .strokeWidth(1.0f)

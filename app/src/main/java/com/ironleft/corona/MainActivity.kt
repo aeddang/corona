@@ -8,13 +8,16 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ironleft.corona.page.PageData
+import com.ironleft.corona.store.Repository
 import com.lib.page.PageActivity
 import com.lib.page.PageFragment
 import com.lib.page.PagePresenter
 import com.lib.util.CommonUtil
+import com.skeleton.module.ViewModelFactory
 import com.skeleton.rx.Rx
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : PageActivity<PageID>(), Rx {
 
@@ -23,15 +26,18 @@ class MainActivity : PageActivity<PageID>(), Rx {
     override fun getPageExitMsg(): Int = R.string.notice_app_exit
     override fun getPageAreaId(): Int = R.id.area
 
+    @Inject
+    lateinit var repository: Repository
+
     override fun onCreatedView() {
         AndroidInjection.inject(this)
         CommonUtil.getApplicationSignature(this)
         PagePresenter.getInstance<PageID>().pageStart(PageID.INTRO)
+        val d = repository.titleObservable.subscribe {
+            tab.title = it
+        }
 
     }
-
-
-
 
     override fun onDestroyedView() {
 

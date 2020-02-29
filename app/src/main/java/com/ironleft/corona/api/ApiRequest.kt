@@ -23,7 +23,7 @@ interface ApiRequest{
         @Query(ApiConst.FIELD_SMODE) smode: String?,
         @Query(ApiConst.FIELD_COUNTRY) country: String?,
         @Query(ApiConst.FIELD_PROVINCE) province: String?
-    ): Single<Lists<DataNews>>
+    ): Single<List<DataCountry>>
 
     @GET(ApiConst.API_GOOGLE)
     fun getGraphDatas(

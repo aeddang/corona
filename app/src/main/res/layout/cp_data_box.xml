@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:text="@string/cp_data_box_title"
         android:textColor="@color/color_gray"
-        app:layout_constraintEnd_toEndOf="@id/textComfirmed"
+
         app:layout_constraintStart_toStartOf="@id/textComfirmed"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:text="-"
+        android:text=""
         android:textColor="@color/color_white"
         android:textSize="@dimen/font_heavy"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
         android:layout_gravity="start|center_vertical"
         android:layout_marginStart="@dimen/margin_extra_thin"
         android:layout_marginTop="@dimen/margin_extra_thin"
-        android:text="-"
+        android:text=""
         android:textColor="@color/color_yellow"
         app:layout_constraintStart_toEndOf="@id/textComfirmed"
         app:layout_constraintTop_toBottomOf="@id/textTitle" />
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:text="-"
+        android:text=""
         android:textColor="@color/color_yellow"
         app:layout_constraintStart_toStartOf="@id/textIncrease"
         app:layout_constraintTop_toBottomOf="@id/textIncrease" />
@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:text="-"
+        android:text=""
         android:textColor="@color/color_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textDeathsTitle" />
@@ -96,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:text="-"
+        android:text=""
         android:textColor="@color/color_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textRecoveredTitle" />

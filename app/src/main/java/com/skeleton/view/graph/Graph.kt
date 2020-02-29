@@ -85,7 +85,7 @@ abstract class Graph@kotlin.jvm.JvmOverloads constructor(context: Context, attrs
     override fun onStart() {
         kind = paints.size
         isContinuous = (values.size == 1)
-        if(size.width == 0 || size.height == 0) size = Size(width, height)
+        size = Size(width, height)
     }
 
     fun setAnimationDuratiuon(d:Long) {

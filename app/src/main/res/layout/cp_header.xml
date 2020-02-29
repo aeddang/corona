@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/color_gray_deep">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <ImageButton
+        android:id="@+id/btnHome"
         android:layout_width="190dp"
         android:layout_height="22dp"
         android:layout_marginStart="@dimen/margin_regular"
         android:layout_marginTop="@dimen/margin_regular"
+        android:background="@drawable/effect_rect_ripple"
         android:scaleType="fitCenter"
         android:src="@drawable/logo_top"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,16 @@
         android:background="@color/color_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintTop_toBottomOf="@id/btnHome" />
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="@dimen/margin_regular"
+        android:scaleType="fitCenter"
+        android:alpha="0.4"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_bottom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

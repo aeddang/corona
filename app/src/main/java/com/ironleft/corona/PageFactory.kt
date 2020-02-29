@@ -42,7 +42,7 @@ class PageFactory {
     val backStackPages: Array<PageID> = arrayOf()
 
 
-    private val fullScreenPage: Array<PageID> = arrayOf(PageID.INTRO, PageID.MAP)
+    private val fullScreenPage: Array<PageID> = arrayOf(PageID.MAP)
     fun isFullScreenPage(id: PageID): Boolean {
         return fullScreenPage.indexOf(id) != - 1
     }

@@ -10,6 +10,7 @@ import com.ironleft.corona.R
 import com.ironleft.corona.model.GraphData
 import com.jakewharton.rxbinding3.view.scrollChangeEvents
 import com.lib.util.animateAlpha
+import com.lib.util.decimalFormat
 import com.skeleton.rx.RxFrameLayout
 import com.skeleton.view.graph.Graph
 import com.skeleton.view.graph.GraphBuilder
@@ -63,10 +64,10 @@ class GraphBox : RxFrameLayout {
 
         }.apply { disposables?.add(this) }
     }
-
-    private val lineNumMax = 30
+    private var lines = ArrayList<Item>()
+    private val lineNumMax = 21
     private var lineNum = 30
-    private var graphMagin = 4.0f
+    private var graphMagin = 6.0f
     private var maxValue:Long = 0
     private var scrollRange:Float = 0.0f
     private var currnentScrollIdx:Int = 0
@@ -74,8 +75,27 @@ class GraphBox : RxFrameLayout {
             if(field == value) return
             field = value
             currnentScrollIdxObservable.onNext(value)
+            currentGraphData?.let {
+                textConfirmed.text = "${it.confirmed.toString().decimalFormat()}"
+            }
+            startGraphData?.let {
+                textStartConfirmed.text = "${it.confirmed.toString().decimalFormat()}"
+            }
+
         }
-    private val currnentScrollIdxObservable = PublishSubject.create<Int>()
+    val currnentScrollIdxObservable = PublishSubject.create<Int>()
+    val currentGraphData:GraphData?
+        get(){
+            if(graphDatas.isEmpty()) return null
+            val n = min( currnentScrollIdx + lineNum , graphDatas.size-1)
+            return graphDatas[n]
+        }
+    val startGraphData:GraphData?
+        get(){
+            if(graphDatas.isEmpty()) return null
+            val n = currnentScrollIdx
+            return graphDatas[n]
+        }
 
     private var modifyScrollPosDisposable:Disposable? = null
     private fun modifyScrollPos(isSmooth:Boolean = true){
@@ -91,7 +111,8 @@ class GraphBox : RxFrameLayout {
     }
 
     private fun initGraph(datas:List<GraphData>){
-        lineNum = min(datas.size-1,lineNumMax)
+        val dataNum = datas.size-1
+        lineNum = min(dataNum,lineNumMax)
 
         updateDate()
         val margin = graphMagin.toInt()
@@ -102,24 +123,25 @@ class GraphBox : RxFrameLayout {
         maxValue = ceil(datas.last().confirmed * 1.1 ).toLong()
 
         val lineWidth = margin * 2
-        val lineRange = round((graphsScroll.width - (lineWidth*2)).toFloat() / lineNum.toFloat() )
-        val layoutWid = round(lineRange).toInt() * lineNum + lineWidth
+        val lineRange = round((graphsScroll.width - (lineWidth)).toFloat() / lineNum.toFloat() )
+        val layoutWid = round(lineRange).toInt() * dataNum + lineWidth
         setupGrapeArea(graphConfirmed, layoutWid)
         setupGrapeArea(graphDeaths, layoutWid)
         setupGrapeArea(graphRecovered, layoutWid)
         scrollRange = lineRange
 
+        lines.forEach { graphLines.removeView(it) }
+        lines.clear()
         for ( i in 0..lineNum ) {
             val line = Item(context)
             graphLines.addView(line)
             val layout = line.layoutParams as ViewGroup.MarginLayoutParams
             layout.width = lineWidth
             layout.rightMargin = lineRange.toInt() - lineWidth
+            lines.add(line)
             line.layoutParams = layout
 
         }
-
-
         loadingBar.visibility = View.GONE
     }
 

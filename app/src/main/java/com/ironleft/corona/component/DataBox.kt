@@ -19,6 +19,7 @@ class DataBox : RxFrameLayout {
     override fun getLayoutResId(): Int { return R.layout.cp_data_box }
     private val appTag = javaClass.simpleName
 
+
     var data:VirusConfirmedData? = null
         set(value) {
             field = value

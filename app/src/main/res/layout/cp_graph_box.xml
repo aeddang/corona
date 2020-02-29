@@ -9,16 +9,16 @@
         android:id="@+id/graphLines"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_regular"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/graphsScroll"
+        app:layout_constraintBottom_toBottomOf="@id/graphsScrollBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
-
-    <HorizontalScrollView
-        android:id="@+id/graphsScroll"
+    <FrameLayout
+        android:id="@+id/graphsScrollBox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_regular"
@@ -26,30 +26,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/graphs"
+        <HorizontalScrollView
+            android:id="@+id/graphsScroll"
+            android:layout_marginTop="@dimen/margin_regular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-            <com.skeleton.view.graph.GraphLine
-                android:id="@+id/graphConfirmed"
+            <FrameLayout
+                android:id="@+id/graphs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                >
 
-            <com.skeleton.view.graph.GraphLine
-                android:id="@+id/graphDeaths"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <com.skeleton.view.graph.GraphLine
+                    android:id="@+id/graphConfirmed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-            <com.skeleton.view.graph.GraphLine
-                android:id="@+id/graphRecovered"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
-    </HorizontalScrollView>
+                <com.skeleton.view.graph.GraphLine
+                    android:id="@+id/graphDeaths"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
+                <com.skeleton.view.graph.GraphLine
+                    android:id="@+id/graphRecovered"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </FrameLayout>
+        </HorizontalScrollView>
+        <TextView
+            android:id="@+id/textStartConfirmed"
+            style="@style/font_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:text="000"
+            android:textSize="@dimen/font_extra_light"
+            android:textColor="@color/color_gray"
+            />
+        <TextView
+            android:id="@+id/textConfirmed"
+            style="@style/font_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:text="000"
+            android:textSize="@dimen/font_extra_light"
+            android:textColor="@color/color_gray"
+            />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textStartDate"

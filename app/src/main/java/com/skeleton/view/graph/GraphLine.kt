@@ -62,7 +62,7 @@ class GraphLine@kotlin.jvm.JvmOverloads constructor(context: Context, attrs: Att
             positions.add(position)
             if(idx ==0 )path.moveTo( position.x, position.y)
             else path.lineTo(position.x, position.y)
-            val r = graphMargin - paint.strokeWidth
+            val r = graphMargin - (paint.strokeWidth*4)
             canvas?.drawOval(position.x-r, position.y -r, position.x+r, position.y+r, paint)
         }
         canvas?.drawPath(path, paints[0])

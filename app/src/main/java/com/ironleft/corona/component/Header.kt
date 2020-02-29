@@ -5,7 +5,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import com.ironleft.corona.PageID
 import com.ironleft.corona.R
+import com.jakewharton.rxbinding3.view.clicks
+import com.lib.page.PagePresenter
 import com.lib.util.animateAlpha
 import com.lib.util.animateY
 import com.skeleton.rx.RxFrameLayout
@@ -31,11 +34,10 @@ class Header : RxFrameLayout {
 
     override fun onSubscribe() {
         super.onSubscribe()
-        /*
-        btnDownLoadStatus.clicks().subscribe {
-            PagePresenter.getInstance<PageID>().openPopup(PageID.POPUP_DOWNLOAD)
+        btnHome.clicks().subscribe {
+            PagePresenter.getInstance<PageID>().pageChange(PageID.DATA)
         }.apply { disposables?.add(this) }
-          */
+
     }
 
     fun onOpen(){
