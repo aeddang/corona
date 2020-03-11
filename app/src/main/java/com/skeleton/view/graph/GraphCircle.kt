@@ -89,11 +89,11 @@ open class GraphCircle@kotlin.jvm.JvmOverloads constructor(context: Context, att
         if( currentValue != targetValue ) return
         delegate?.let {
             val data = ArrayList<Pair<Double, Point>>()
-            val l = rectF.width()/2.0f
+            val l = width/4.0f
             sum = startDegree.toDouble()
             values.forEach { value ->
                 val v = sum + (value/2.0)
-                val r = v * Math.PI/180
+                val r = v * Math.PI/180.0
                 val tx = centerX + (cos(r) *l)
                 val ty = centerY + (sin(r) *l)
                 val point = Point( tx.roundToInt() , ty.roundToInt() )

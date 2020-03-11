@@ -42,7 +42,7 @@ class PageFactory {
     val backStackPages: Array<PageID> = arrayOf()
 
 
-    private val fullScreenPage: Array<PageID> = arrayOf(PageID.MAP)
+    private val fullScreenPage: Array<PageID> = arrayOf()
     fun isFullScreenPage(id: PageID): Boolean {
         return fullScreenPage.indexOf(id) != - 1
     }
@@ -55,6 +55,11 @@ class PageFactory {
     private val useTabPage: Array<PageID> = arrayOf(PageID.NEWS, PageID.DATA)
     fun needTabPage(id: PageID): Boolean {
         return useTabPage.indexOf(id) != - 1
+    }
+
+    private val useBottomPage: Array<PageID> = arrayOf(PageID.NEWS, PageID.DATA)
+    fun needBottomPage(id: PageID): Boolean {
+        return useBottomPage.indexOf(id) != - 1
     }
 
 
@@ -72,7 +77,9 @@ class PageFactory {
             PageID.INTRO -> PageIntro()
             PageID.DATA -> PageData()
             PageID.NEWS -> PageNews()
+            PageID.GRAPH -> PageGraph()
             PageID.MAP -> PageMap()
+            PageID.SETUP -> PageSetup()
             PageID.POPUP_WEBVIEW -> PopupWebView()
         }
     }
@@ -89,7 +96,9 @@ enum class PageID(val resId: Int, override var position: Int = 9999) : PagePosit
     //group1
     INTRO(R.string.page_intro,0),
     DATA(R.string.page_data,101),
-    NEWS(R.string.page_news,102),
-    MAP(R.string.page_map,103),
+    NEWS(R.string.page_news,201),
+    GRAPH(R.string.page_graph,103),
+    MAP(R.string.page_map,102),
+    SETUP(R.string.page_setup,301),
     POPUP_WEBVIEW(R.string.popup_webview)
 }

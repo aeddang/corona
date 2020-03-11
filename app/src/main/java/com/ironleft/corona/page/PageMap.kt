@@ -6,12 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.SupportMapFragment
 import com.ironleft.corona.PageID
 import com.ironleft.corona.R
-import com.ironleft.corona.page.viewmodel.ViewModelMap
+import com.ironleft.corona.page.viewmodel.ViewModelData
 import com.jakewharton.rxbinding3.view.clicks
 import com.lib.page.PagePresenter
 import com.lib.page.PageRequestPermission
 import com.skeleton.module.ViewModelFactory
 import com.skeleton.rx.RxPageFragment
+import com.skeleton.view.alert.CustomToast
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.page_map.*
 import javax.inject.Inject
@@ -25,13 +26,13 @@ class PageMap  : RxPageFragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: ViewModelMap
+    private lateinit var viewModel: ViewModelData
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelMap::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelData::class.java)
     }
 
 
@@ -43,6 +44,10 @@ class PageMap  : RxPageFragment(){
                     resultAll: Boolean,
                     permissions: List<Boolean>?
                 ) {
+                    if(!resultAll){
+                        context?.let { CustomToast.makeToast(it, R.string.notice_need_permission).show() }
+                        return
+                    }
                     val map = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
                     map?.let { it.getMapAsync { gm-> mapBox.googleMap = gm } }
                 }
@@ -63,6 +68,11 @@ class PageMap  : RxPageFragment(){
         }.apply { disposables.add(this) }
         viewModel.repo.virusConfirmedDataObservable.subscribe {
             mapBox.virusConfirmedDatas = viewModel.repo.virusConfirmedDatas
+            mapBox.initLocation = viewModel.repo.selectedCountry?.latLng
+        }.apply { disposables.add(this) }
+
+        mapBox.selectedLocationObservable.subscribe {
+            PagePresenter.getInstance<PageID>().pageChange(PageID.GRAPH)
         }.apply { disposables.add(this) }
     }
 

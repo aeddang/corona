@@ -12,7 +12,7 @@ object Log {
         if (enable == 1) android.util.Log.i(PageActivity.TAG + tag, toString(*objects))
         else {
             when (BuildConfig.BUILD_TYPE) {
-                "debug" -> android.util.Log.i(PageActivity.TAG + tag, toString(*objects))
+                "debug", "release_debug"-> android.util.Log.i(PageActivity.TAG + tag, toString(*objects))
             }
         }
     }
@@ -21,7 +21,7 @@ object Log {
         if (enable == 1) android.util.Log.d(PageActivity.TAG + tag, toString(*objects))
         else {
             when (BuildConfig.BUILD_TYPE) {
-                "debug" -> android.util.Log.d(PageActivity.TAG + tag, toString(*objects))
+                "debug", "release_debug" -> android.util.Log.d(PageActivity.TAG + tag, toString(*objects))
             }
         }
     }

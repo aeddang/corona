@@ -13,19 +13,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/margin_regular">
+            android:layout_marginBottom="@dimen/margin_bottom"
+            >
 
             <com.ironleft.corona.component.DataBox
                 android:id="@+id/dataBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top" />
+                android:layout_marginStart="@dimen/margin_regular"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginEnd="@dimen/margin_regular" />
 
             <com.ironleft.corona.component.GraphBox
                 android:id="@+id/graphBox"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="@dimen/margin_medium" />
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginStart="@dimen/margin_regular"
+                android:layout_marginEnd="@dimen/margin_regular"/>
             <ImageButton
                 android:id="@+id/btnMapDetail"
                 android:layout_marginTop="@dimen/margin_medium"
@@ -34,8 +39,9 @@
                 android:background="@drawable/effect_circle_ripple"
                 android:layout_gravity="right"
                 android:src="@drawable/ic_add"
-                android:tint="@color/color_white"
+                android:tint="@color/color_gray"
                 android:scaleType="fitCenter"
+                android:layout_marginEnd="@dimen/margin_regular"
                 />
             <com.ironleft.corona.component.MapBox
                 android:id="@+id/mapBox"

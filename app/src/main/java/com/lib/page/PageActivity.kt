@@ -24,7 +24,7 @@ import kotlin.math.abs
 abstract class PageActivity<T> : AppCompatActivity(), View<T>, Page, PageDelegate<Any>,
     Activity<T> {
     companion object {
-        val TAG = javaClass.simpleName
+        val TAG = "Page : "
     }
     open lateinit var pagePresenter: PagePresenter<T>;  protected set
     protected lateinit var pageArea:ViewGroup

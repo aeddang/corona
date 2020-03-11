@@ -1,20 +1,48 @@
 package com.ironleft.corona.store
 
 import android.content.Context
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 
 import com.ironleft.corona.PreferenceName
 import com.lib.module.CachedPreference
+import com.lib.util.Log
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class SettingPreference(context: Context) : CachedPreference(context, PreferenceName.SETTING) {
     companion object {
-        private const val FINAL_SERVER_ID = "finalServerID"
+        private const val PUSH_ABLE = "pushAble"
+        private const val SELECTED_COUNTRY = "selectedCounry"
     }
+    private var appTag = javaClass.simpleName
 
-    fun putFinalServerID(id: Int) = put(FINAL_SERVER_ID, id)
-    fun getFinalServerID(): Int = get(FINAL_SERVER_ID, -1) as Int
 
-    //fun putViewGesture(bool: Boolean) = put(VIEW_GESTURE, bool)
-    //fun getViewGesture(): Boolean = get(VIEW_GESTURE, false) as Boolean
+    private var pushDispose:Disposable? = null
+    fun putPushAble(isOn: Boolean) {
+        put(PUSH_ABLE, isOn)
+        pushDispose?.dispose()
+        pushDispose = null
+        if(isOn){
+            FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) return@OnCompleteListener
+                    task.result?.token?.let {
+                        Log.d(appTag, "set current push key $it")
+                        //settingPreference.setPushKey(it)
+                    }
+                })
+        }else{
+            pushDispose = Observable.just(isOn).subscribeOn(Schedulers.io()).subscribe  {
+                FirebaseInstanceId.getInstance().deleteInstanceId()
+            }
+        }
+    }
+    fun getPushAble(): Boolean = get(PUSH_ABLE, true) as Boolean
 
+    fun putSelectedCountry(country: String)  = put(SELECTED_COUNTRY, country)
+    fun getSelectedCountry(): String = get(SELECTED_COUNTRY, "") as String
 
 }

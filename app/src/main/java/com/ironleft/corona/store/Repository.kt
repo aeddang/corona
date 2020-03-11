@@ -1,23 +1,19 @@
 package com.ironleft.corona.store
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.Marker
 import com.ironleft.corona.R
 import com.ironleft.corona.api.ApiConst
 import com.ironleft.corona.api.ApiRequest
-import com.ironleft.corona.api.DataCountry
 import com.ironleft.corona.model.*
 
 
 import com.skeleton.module.network.NetworkFactory
 import com.skeleton.module.network.RxObservableConverter
-import com.skeleton.view.alert.CustomAlert
 import com.skeleton.view.alert.CustomToast
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import java.util.*
+import kotlin.math.max
 
 
 class Repository(
@@ -30,35 +26,24 @@ class Repository(
     private val disposables = CompositeDisposable()
     private val api = networkFactory.getRetrofit(ApiConst.API_PATH).create(ApiRequest::class.java)
 
-    var selectedMarker : Marker? = null
+    var selectedCountry : CountryData? = null
         set(value) {
+            if(field == value) return
             field = value
-            titleObservable.onNext(field?.title ?: ctx.getString(R.string.cp_tab_title))
+            setting.putSelectedCountry(field?.title ?: "")
+            selectedCountryObservable.onNext(field ?: CountryData( ctx.getString(R.string.cp_tab_title)) )
+            clearGraphs()
         }
-    val titleObservable = PublishSubject.create<String>()
+    val selectedCountryObservable = PublishSubject.create<CountryData>()
 
     var virusConfirmedDatas: List<VirusConfirmedData>? = null ; private set
-    var virusConfirmedData: VirusConfirmedData? = null
-        private set(value) {
-            field = value
-            value ?: return
-            virusConfirmedDataObservable.onNext(value)
-        }
-
-
-    var graphDatas :List<GraphData>? = null
-        private set(value) {
-            field = value
-            value ?: return
-            graphDatasObservable.onNext(value)
-        }
-
-    var newsDatas:ArrayList<NewsData>? = null
-        private set(value) {
-            field = value
-            value ?: return
-
-        }
+    var virusConfirmedData: VirusConfirmedData? = null ; private set
+    var graphIncresedMax = 0L ; private set
+    var graphIncresedConfirmedMax = 0L ; private set
+    var graphIncresedDeathsMax = 0L ; private set
+    var graphIncresedRecoveredMax = 0L ; private set
+    var graphDatas :List<GraphData>? = null ; private set
+    var newsDatas:ArrayList<NewsData>? = null ; private set
 
     val virusConfirmedDataObservable = PublishSubject.create<VirusConfirmedData>()
     val virusConfirmedCountryDataObservable = PublishSubject.create<VirusConfirmedData>()
@@ -67,19 +52,36 @@ class Repository(
 
     fun clearGraphs(){
         graphDatas = null
+        graphIncresedMax = 0L
+        graphIncresedConfirmedMax = 0L
+        graphIncresedDeathsMax = 0L
+        graphIncresedRecoveredMax = 0L
     }
     fun getGraphs(){
-        val smode = if(selectedMarker == null) ApiConst.API_SMODE_GRAPH_TOTAL else ApiConst.API_SMODE_GRAPH
-        RxObservableConverter.forNetwork( api.getGraphDatas(smode, selectedMarker?.title , null) ).subscribe(
+        if(graphDatas != null){
+            graphDatasObservable.onNext(graphDatas!!)
+            return
+        }
+        val smode = if(selectedCountry == null) ApiConst.API_SMODE_GRAPH_TOTAL else ApiConst.API_SMODE_GRAPH
+        RxObservableConverter.forNetwork( api.getGraphDatas(smode, selectedCountry?.title , null) ).subscribe(
             {result->
-                graphDatas = result.map { GraphData(UUID.randomUUID().toString()).setData(it) }
-                if(selectedMarker != null) graphDatas = graphDatas?.reversed()
+                var datas = result.map { GraphData(UUID.randomUUID().toString()).setData(it) }
+                if(selectedCountry != null) datas = datas.reversed()
+                var prevData:GraphData? = null
+                datas.forEach {
+                    graphIncresedMax = max(graphIncresedMax, it.setDiffData(prevData))
+                    graphIncresedConfirmedMax = max(graphIncresedConfirmedMax, it.diffConfirmed)
+                    graphIncresedDeathsMax = max(graphIncresedDeathsMax, it.diffDeaths)
+                    graphIncresedRecoveredMax = max(graphIncresedRecoveredMax, it.diffRecovered)
+                    prevData = it
+                }
+                graphDatas = datas
+                graphDatasObservable.onNext(graphDatas!!)
             },{
                 CustomToast.makeToast(ctx, R.string.error_data_loading).show()
             }
         ).apply { disposables.add(this) }
     }
-
 
     fun clearNews(){ newsDatas = null }
     fun getNews(page:Int = 0, perPage:Int = 20){
@@ -106,12 +108,15 @@ class Repository(
         }
         RxObservableConverter.forNetwork( api.getAllDatas(ApiConst.API_SMODE_COUNTRY_TOTAL) ).subscribe(
             {result->
-
+                val selectedTitle = setting.getSelectedCountry() ?: ""
                 virusConfirmedDatas = result.map { VirusConfirmedData(UUID.randomUUID().toString()).setData(it) }
                 val sumData = VirusConfirmedData(UUID.randomUUID().toString())
-                virusConfirmedDatas?.forEach { sumData.sum(it) }
+                virusConfirmedDatas?.forEach {
+                    it.map?.let { m-> if(selectedTitle == m.title) selectedCountry = CountryData(selectedTitle, m.latLng )}
+                    sumData.sum(it)
+                }
                 virusConfirmedData = sumData
-
+                virusConfirmedDataObservable.onNext(virusConfirmedData!!)
 
             },{
                 CustomToast.makeToast(ctx, R.string.error_data_loading).show()
@@ -121,7 +126,15 @@ class Repository(
 
 
     fun getVirusConfirmedCountry(){
-        RxObservableConverter.forNetwork( api.getDatas(ApiConst.API_SMODE_COUNTRY , selectedMarker?.title, null) ).subscribe(
+        if(virusConfirmedDatas != null){
+            val find = virusConfirmedDatas!!.find { it.map?.title == selectedCountry?.title }
+            if( find != null ) {
+                virusConfirmedCountryDataObservable.onNext(find)
+                return
+            }
+        }
+
+        RxObservableConverter.forNetwork( api.getDatas(ApiConst.API_SMODE_COUNTRY , selectedCountry?.title, null) ).subscribe(
             {result->
                 val datas = result.map { VirusConfirmedData(UUID.randomUUID().toString()).setData(it) }
                 val sumData = VirusConfirmedData(UUID.randomUUID().toString())

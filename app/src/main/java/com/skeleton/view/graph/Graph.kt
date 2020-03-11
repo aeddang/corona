@@ -57,10 +57,28 @@ abstract class Graph@kotlin.jvm.JvmOverloads constructor(context: Context, attrs
 
     var values:List<Double> = ArrayList()
         set(value) {
+            currentValue = 0.0
             if(value.isEmpty()) return
             field = getModifyValues(value)
-            startAnimation(duration, delay)
+            if(!isImmediately) startAnimation(duration, delay)
         }
+
+    fun resetValues(){
+        currentValue = 0.0
+        values = ArrayList()
+        postInvalidate()
+    }
+
+    private var isImmediately = false
+    open fun setImmediatelyValues(v:List<Double>){
+        if(v.isEmpty()) return
+        isImmediately = true
+        values = v
+        onStart()
+        onCompleted(0)
+        postInvalidate()
+        isImmediately = false
+    }
     abstract fun getModifyValues(value:List<Double>): List<Double>
     abstract fun setRange(endValue:Double)
     abstract fun setColor(colors:Array<Int>)

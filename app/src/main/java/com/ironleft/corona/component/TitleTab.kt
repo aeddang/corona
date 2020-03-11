@@ -3,27 +3,24 @@ package com.ironleft.corona.component
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import com.ironleft.corona.PageID
 import com.ironleft.corona.R
-import com.jakewharton.rxbinding3.view.clicks
-import com.lib.page.PagePresenter
 import com.lib.util.animateAlpha
-import com.lib.util.animateY
 import com.skeleton.rx.RxFrameLayout
 import kotlinx.android.synthetic.main.cp_tab.view.*
 
-class Tab : RxFrameLayout {
+class TitleTab : RxFrameLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context,attrs)
     override fun getLayoutResId(): Int { return R.layout.cp_tab }
     private val appTag = javaClass.simpleName
     private val passiveAlpha = 0.4f
 
+    private var areaTitle = context.getString(R.string.cp_tab_title)
     var title:String = ""
         set(value) {
             field = value
+            areaTitle = field
             textTitle.text = value
         }
 
@@ -32,16 +29,18 @@ class Tab : RxFrameLayout {
             field = value
             when(value){
                 PageID.DATA ->{
-                    btnData.alpha = 1.0f
-                    btnNews.alpha = passiveAlpha
+                    textTitle.text = areaTitle
                 }
                 PageID.NEWS ->{
-                    btnData.alpha = passiveAlpha
-                    btnNews.alpha = 1.0f
+                    textTitle.text = context.getString(value.resId)
+
                 }
                 else ->{
-                    btnData.alpha = passiveAlpha
-                    btnNews.alpha = passiveAlpha
+                    /*
+                    value?.let {
+                        textTitle.text = context.getString(it.resId)
+                    }
+                    */
                 }
             }
         }
@@ -49,9 +48,8 @@ class Tab : RxFrameLayout {
     override fun onCreatedView() {
         alpha = 0.0f
         visibility = View.GONE
-        btnData.alpha = passiveAlpha
-        btnNews.alpha = passiveAlpha
     }
+
 
     override fun onDestroyedView() {
 
@@ -59,13 +57,7 @@ class Tab : RxFrameLayout {
     override fun onSubscribe() {
         super.onSubscribe()
 
-        btnData.clicks().subscribe {
-            PagePresenter.getInstance<PageID>().pageChange(PageID.DATA)
-        }.apply { disposables?.add(this) }
 
-        btnNews.clicks().subscribe {
-            PagePresenter.getInstance<PageID>().pageChange(PageID.NEWS)
-        }.apply { disposables?.add(this) }
 
     }
 

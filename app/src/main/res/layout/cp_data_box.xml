@@ -14,10 +14,20 @@
         android:layout_gravity="center"
         android:text="@string/cp_data_box_title"
         android:textColor="@color/color_gray"
-
+        android:layout_marginTop="@dimen/margin_extra_thin"
         app:layout_constraintStart_toStartOf="@id/textComfirmed"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/btnDetail"
+        android:layout_width="@dimen/icon_regular"
+        android:layout_height="@dimen/icon_regular"
+        android:background="@drawable/effect_circle_ripple"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_add"
+        android:tint="@color/color_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/textComfirmed"
         style="@style/font_bold"
@@ -26,7 +36,8 @@
         android:layout_gravity="start|center_vertical"
         android:text=""
         android:textColor="@color/color_white"
-        android:textSize="@dimen/font_heavy"
+        android:textSize="@dimen/font_extra_bold"
+        android:layout_marginTop="@dimen/margin_extra_thin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
@@ -87,6 +98,7 @@
         android:layout_gravity="start|center_vertical"
         android:text=""
         android:textColor="@color/color_red"
+        android:textSize="@dimen/font_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textDeathsTitle" />
 
@@ -98,6 +110,7 @@
         android:layout_gravity="start|center_vertical"
         android:text=""
         android:textColor="@color/color_green"
+        android:textSize="@dimen/font_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textRecoveredTitle" />
 

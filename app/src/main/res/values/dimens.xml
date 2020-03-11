@@ -4,7 +4,7 @@
     <dimen name="font_black">36dp</dimen>
     <dimen name="font_heavy">40dp</dimen>
     <dimen name="font_extra_bold">32dp</dimen>
-    <dimen name="font_bold">18dp</dimen>
+    <dimen name="font_bold">24dp</dimen>
     <dimen name="font_medium">18dp</dimen>
     <dimen name="font_regular">16dp</dimen>
     <dimen name="font_light">15dp</dimen>
@@ -19,10 +19,11 @@
     <dimen name="margin_thin">10dp</dimen>
     <dimen name="margin_extra_thin">5dp</dimen>
 
-    <dimen name="margin_header">64dp</dimen>
-    <dimen name="margin_tab">30dp</dimen>
-    <dimen name="margin_top">145dp</dimen>
-
+    <dimen name="margin_header">65dp</dimen>
+    <dimen name="margin_bottom">60dp</dimen>
+    <dimen name="margin_tab">25dp</dimen>
+    <dimen name="margin_top">125dp</dimen>
+    <dimen name="margin_bottom_icon">22dp</dimen>
     <!-- icon size -->
     <dimen name="icon_heavy">32dp</dimen>
     <dimen name="icon_regular">24dp</dimen>

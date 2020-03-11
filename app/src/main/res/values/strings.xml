@@ -2,19 +2,24 @@
     <string name="app_name">WorldVirus\nWatch</string>
     <string name="notice_app_exit">Press again to exit.</string>
     <string name="notice_need_permission">If you do not grant permission, some functions are not be able to used.</string>
+    <string name="notice_empty_data">No Data</string>
     <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">Cancel</string>
     <string name="error_data_loading">Data loading error</string>
 
     <string name="key_google_map">AIzaSyAUTgR2I8bbVX_8XHcoMRxkLlqx4Uz6xTs</string>
-
-
+    <string name="notification_channel_id">1</string>
+    <string name="fcm_title">FCM Message</string>
 
     <string name="page_intro">Intro</string>
     <string name="page_data">Data</string>
+    <string name="page_graph">Graph</string>
     <string name="page_map">Map</string>
     <string name="page_news">News</string>
     <string name="popup_webview">Webview</string>
+    <string name="page_setup">Setup</string>
+
+    <string name="page_setup_push">Push</string>
 
     <string name="cp_header_title">World Virus Watch</string>
 

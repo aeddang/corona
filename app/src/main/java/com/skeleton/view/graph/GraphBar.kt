@@ -23,9 +23,9 @@ class GraphBar@kotlin.jvm.JvmOverloads constructor(context: Context, attrs: Attr
     private var strokeMargin = 0.0f
     init {
         this.duration = GraphUtil.ANIMATION_DURATION
-        zeroPaint = Paint()
-        zeroPaint?.strokeCap = Paint.Cap.ROUND
-        zeroPaint?.color = Color.LTGRAY
+        //zeroPaint = Paint()
+        //zeroPaint?.strokeCap = Paint.Cap.ROUND
+        //zeroPaint?.color = Color.LTGRAY
     }
 
     override fun getModifyValues(value: List<Double>): List<Double> {

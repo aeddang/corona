@@ -60,7 +60,7 @@ class GraphBuilder {
     }
 
     fun setColor(@ColorRes colors:Array<Int>):GraphBuilder {
-        val newColors = colors.mapNotNull { graph.context.getColor(it) }
+        val newColors = colors.mapNotNull { graph.context.resources.getColor(it) }
         graph.setColor(newColors.toTypedArray())
         return this
     }
@@ -104,6 +104,21 @@ class GraphBuilder {
     fun setDuration(duration:Long):GraphBuilder {
         graph.setAnimationDuratiuon(duration)
         return this
+    }
+
+    fun reset():Graph {
+        graph.resetValues()
+        return graph
+    }
+
+    fun set(value:Double):Graph {
+        graph.setImmediatelyValues(arrayListOf(value))
+        return graph
+    }
+
+    fun set(values:List<Double>):Graph {
+        graph.setImmediatelyValues(values)
+        return graph
     }
 
     fun show(value:Double, delay:Long = 0):Graph {

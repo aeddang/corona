@@ -6,11 +6,10 @@ import com.ironleft.corona.store.Repository
 
 
 
-class ViewModelMap (val repo: Repository) : ViewModel(){
+class ViewModelSetting (val repo: Repository) : ViewModel(){
     private val appTag = javaClass.simpleName
 
     init {
-
 
     }
 

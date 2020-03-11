@@ -3,19 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="150dp"
     android:background="@color/color_gray_deep">
-    <LinearLayout
-        android:id="@+id/graphBars"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal"
-        android:alpha="0.4"
-        app:layout_constraintBottom_toBottomOf="@id/graphsScrollBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
     <LinearLayout
         android:id="@+id/graphLines"
         android:layout_width="0dp"
@@ -42,7 +31,6 @@
             android:layout_marginTop="@dimen/margin_regular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
             >
 
             <FrameLayout
@@ -50,7 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-
+                <LinearLayout
+                    android:id="@+id/graphBars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"/>
                 <com.skeleton.view.graph.GraphLine
                     android:id="@+id/graphConfirmed"
                     android:layout_width="match_parent"
@@ -76,8 +68,8 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:layout_gravity="left"
-            android:text=""
-            android:textSize="@dimen/font_thin"
+            android:text="000"
+            android:textSize="@dimen/font_extra_light"
             android:textColor="@color/color_gray"
             />
         <TextView
@@ -87,8 +79,8 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:layout_gravity="right"
-            android:text=""
-            android:textSize="@dimen/font_thin"
+            android:text="000"
+            android:textSize="@dimen/font_extra_light"
             android:textColor="@color/color_gray"
             />
     </FrameLayout>
@@ -99,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text=""
+        android:text="-"
         android:textColor="@color/color_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -110,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text=""
+        android:text="-"
         android:textColor="@color/color_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

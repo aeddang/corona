@@ -38,6 +38,9 @@ class Header : RxFrameLayout {
             PagePresenter.getInstance<PageID>().pageChange(PageID.DATA)
         }.apply { disposables?.add(this) }
 
+        btnSetup.clicks().subscribe {
+            PagePresenter.getInstance<PageID>().pageChange(PageID.SETUP)
+        }.apply { disposables?.add(this) }
     }
 
     fun onOpen(){

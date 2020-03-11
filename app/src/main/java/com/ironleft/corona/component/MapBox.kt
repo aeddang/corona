@@ -1,5 +1,6 @@
 package com.ironleft.corona.component
 
+import android.Manifest
 import android.content.Context
 import android.location.Location
 
@@ -10,9 +11,11 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
+import com.ironleft.corona.PageID
 import com.ironleft.corona.R
 import com.ironleft.corona.model.MapData
 import com.ironleft.corona.model.VirusConfirmedData
+import com.lib.page.PagePresenter
 import com.lib.util.Log
 import com.skeleton.rx.RxFrameLayout
 import com.skeleton.view.item.ListItem
@@ -28,8 +31,8 @@ class MapBox: RxFrameLayout {
     override fun getLayoutResId(): Int { return R.layout.cp_map_box }
     private val appTag = javaClass.simpleName
 
+    val selectedLocationObservable = PublishSubject.create<Marker>()
     val selectLocationObservable = PublishSubject.create<Marker>()
-
     private val meLocationObservable = PublishSubject.create<Location>()
     private var meLocation: Location? = null
         set(value) {
@@ -44,12 +47,17 @@ class MapBox: RxFrameLayout {
             value ?: return
             onMapUpdate()
         }
+    var initLocation: LatLng? = null
+        set(value) {
+            field = value
+            if(field == null) findMe()
+            else googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(field!!, defaultZoom))
+        }
 
     var googleMap: GoogleMap? = null
         set(value) {
             field = value
             value ?: return
-            findMe()
             googleMap ?: return
             googleMap?.setMinZoomPreference(minZoom)
             googleMap?.setMaxZoomPreference(maxZoom)
@@ -71,13 +79,14 @@ class MapBox: RxFrameLayout {
 
             })
             googleMap?.setOnInfoWindowClickListener {
-                selectLocationObservable.onNext(it)
+                selectedLocationObservable.onNext(it)
             }
             googleMap?.setOnMarkerClickListener {
                 selectLocationObservable.onNext(it)
                 false
             }
             onMapUpdate()
+            if(initLocation == null) findMe()
         }
 
 
@@ -88,7 +97,6 @@ class MapBox: RxFrameLayout {
     override fun onDestroyedView() {
         googleMap = null
         virusConfirmedDatas = null
-
     }
 
 
@@ -128,16 +136,17 @@ class MapBox: RxFrameLayout {
 
 
     private fun findMe(){
+        googleMap ?: return
         context ?: return
+        if( !PagePresenter.getInstance<PageID>().hasPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) ) return
         LocationServices.getFusedLocationProviderClient(context!!).lastLocation.addOnSuccessListener { location->
-            if (location != null) meLocation = location
+            if (location != null) {
+                meLocation = location
+                meLocation?.let { googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), defaultZoom)) }
+            }
         }
     }
 
-    private fun onMe(){
-        val zoomLevel = defaultZoom // 2~21
-        meLocation?.let { googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), zoomLevel)) }
-    }
 
     private fun onMapUpdate() {
         googleMap ?: return
@@ -147,8 +156,8 @@ class MapBox: RxFrameLayout {
         googleMap?.let { gmap ->
             gmap.clear()
             //gmap.setOnCircleClickListener { Log.i(appTag, "on Circle click") }
-
             context?.let { ctx->
+
                 var initData: MapData? = null
                 virusConfirmedDatas?.forEach {data->
                     if(initData == null) initData = data.map
@@ -160,8 +169,7 @@ class MapBox: RxFrameLayout {
                         .title(map.title)
                         .snippet(data.infoDatas)
                     val r =  map.circleRadius
-
-                    gmap.addMarker(markerOption)
+                    val marker = gmap.addMarker(markerOption)
                     val circleOptions = CircleOptions()
                         .clickable(true)
                         .center(map.latLng)
@@ -170,9 +178,7 @@ class MapBox: RxFrameLayout {
                         .strokeColor(ContextCompat.getColor(ctx, R.color.color_white))
                         .fillColor(ContextCompat.getColor(ctx, colorLevels[cl]))
                     gmap.addCircle(circleOptions)
-
                 }
-                onMe()
                 //initData?.let {  gmap.moveCamera(CameraUpdateFactory.newLatLng(it.latLng)) }
             }
 

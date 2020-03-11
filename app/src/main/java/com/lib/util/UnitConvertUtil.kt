@@ -69,12 +69,12 @@ fun Double.percentToDouble(): Double {
 
 fun Double.toPercent(): String {
     val pct = this * 100.0
-    return String.format("%.0f", pct)
+    return String.format("%.2f", pct)
 }
 
 fun Float.toPercent(): String {
     val pct = this * 100.0f
-    return String.format("%.0f", pct)
+    return String.format("%.2f", pct)
 }
 
 fun Double.toKal(): String {

@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "593833597235",
+    "firebase_url": "https://world-virus-watch.firebaseio.com",
+    "project_id": "world-virus-watch",
+    "storage_bucket": "world-virus-watch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593833597235:android:ade8d93c4e394e2966c646",
+        "android_client_info": {
+          "package_name": "com.ironleft.corona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593833597235-ppftpmhgitbefo0d2lsatc11ousgccg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ironleft.corona",
+            "certificate_hash": "998a519f64f312c25c813f0a31dcb229c18be059"
+          }
+        },
+        {
+          "client_id": "593833597235-94i7k2vvo3aemrnc31ohn37a42fjt1uk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ironleft.corona",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "593833597235-fcobs79i0io8rp0dopbrf2ivip5vfcuf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ironleft.corona",
+            "certificate_hash": "587a2888ff86363c3ccefb9a1863163369f94e7c"
+          }
+        },
+        {
+          "client_id": "593833597235-96m3ctc86kl88bjhlqnfgjl7g7i7c6k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_mcmoFFvcohU94uh0lLStEsP71ggibk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593833597235-96m3ctc86kl88bjhlqnfgjl7g7i7c6k8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

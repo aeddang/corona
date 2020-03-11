@@ -37,4 +37,12 @@ internal abstract class AndroidBindingModule {
     @ContributesAndroidInjector(modules = [PageModule::class])
     internal abstract fun bindPageMap(): PageMap
 
+    @PageScope
+    @ContributesAndroidInjector(modules = [PageModule::class])
+    internal abstract fun bindPageGraph(): PageGraph
+
+    @PageScope
+    @ContributesAndroidInjector(modules = [PageModule::class])
+    internal abstract fun bindPageSetup(): PageSetup
+
 }

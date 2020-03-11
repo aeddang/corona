@@ -7,12 +7,15 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.ironleft.corona.page.PageData
 import com.ironleft.corona.store.Repository
 import com.lib.page.PageActivity
 import com.lib.page.PageFragment
 import com.lib.page.PagePresenter
 import com.lib.util.CommonUtil
+import com.lib.util.Log
 import com.skeleton.module.ViewModelFactory
 import com.skeleton.rx.Rx
 import dagger.android.AndroidInjection
@@ -33,9 +36,8 @@ class MainActivity : PageActivity<PageID>(), Rx {
         AndroidInjection.inject(this)
         CommonUtil.getApplicationSignature(this)
         PagePresenter.getInstance<PageID>().pageStart(PageID.INTRO)
-        val d = repository.titleObservable.subscribe {
-            tab.title = it
-        }
+        val d = repository.selectedCountryObservable.subscribe { tab.title = it.title }
+        if(repository.setting.getPushAble()) repository.setting.putPushAble(true)
 
     }
 
@@ -48,12 +50,15 @@ class MainActivity : PageActivity<PageID>(), Rx {
 
     }
 
+    override fun onSubscribe() {
+        super.onSubscribe()
+    }
 
 
     override fun onWillChangePageFragment(id: PageID, param: Map<String, Any?>?, isPopup: Boolean) {
         loaded()
         tab.currentPage = id
-
+        bottom.currentPage = id
         val willChangeOrientation = PageFactory.getInstance().getPageOrientation(id)
         if (willChangeOrientation != -1 && requestedOrientation != willChangeOrientation)
             requestedOrientation = willChangeOrientation
@@ -61,6 +66,8 @@ class MainActivity : PageActivity<PageID>(), Rx {
 
         if(PageFactory.getInstance().needHeaderPage(id)) header.onOpen() else header.onClose()
         if(PageFactory.getInstance().needTabPage(id)) tab.onOpen() else tab.onClose()
+        if(PageFactory.getInstance().needBottomPage(id)) bottom.onOpen() else bottom.onClose()
+
         val isFullScreen = PageFactory.getInstance().isFullScreenPage(id)
         if (isFullScreen) CommonUtil.enterFullScreenMode(this)
         else CommonUtil.enterDefaultMode(this)

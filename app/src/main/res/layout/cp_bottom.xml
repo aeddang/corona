@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_bottom"
+    android:background="@color/color_gray_deep">
+    <ImageButton
+        android:id="@+id/btnData"
+        style="@style/font_bold"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_bottom_icon"
+        android:background="@drawable/effect_rect_bg_ripple"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_data"
+        android:layout_weight="1"
+         />
+
+    <ImageButton
+        android:id="@+id/btnNews"
+        style="@style/font_bold"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_bottom_icon"
+        android:background="@drawable/effect_rect_bg_ripple"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_news"
+        android:layout_weight="1"
+         />
+</LinearLayout>

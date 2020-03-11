@@ -7,6 +7,8 @@ import com.ironleft.corona.api.DataNews
 import com.lib.util.Log
 import kotlin.math.min
 
+data class CountryData(val title:String, val latLng: LatLng = LatLng(0.0,0.0)){}
+
 data class VirusConfirmedData(val id:String){
 
     var confirmed:Long = 0 ; private set
@@ -37,6 +39,17 @@ data class VirusConfirmedData(val id:String){
 
     }
 
+    val deathsRatio:Double
+        get() {
+            if(confirmed <= 0) return 0.0
+            return deaths.toDouble() / confirmed.toDouble()
+        }
+    val recoveredRatio:Double
+        get() {
+            if(confirmed <= 0) return 0.0
+            return recovered.toDouble() / confirmed.toDouble()
+        }
+
     val infoDatas:String
         get() {
             return "confirmed : $confirmed/deaths : $deaths/recovered : $recovered"
@@ -60,7 +73,6 @@ data class MapData(val id:String){
     val circleRadius:Double
         get() {
             val m = min(confirmed , limited)
-            Log.i("aaaaa", "${title} $confirmed $m ")
             return m * unit
         }
 
@@ -76,10 +88,17 @@ data class MapData(val id:String){
     }
 }
 
+
+
 data class GraphData( val id:String){
     var confirmed:Long = 0 ; private set
     var deaths:Long = 0 ; private set
     var recovered:Long = 0 ; private set
+
+    var diffConfirmed:Long = 0 ; private set
+    var diffDeaths:Long = 0 ; private set
+    var diffRecovered:Long = 0 ; private set
+
     var viewDate:String = "" ; private set
     fun setData(data:DataGraph):GraphData{
         confirmed = data.confirmed?.toLongOrNull() ?: 0
@@ -88,6 +107,24 @@ data class GraphData( val id:String){
         viewDate = data.ymd ?: ""
         return this
     }
+
+    fun setDiffData(prevData:GraphData? = null):Long{
+        diffConfirmed = confirmed - (prevData?.confirmed ?: 0)
+        diffDeaths = deaths - (prevData?.deaths ?: 0)
+        diffRecovered = recovered - (prevData?.recovered ?: 0)
+        return maxOf(diffConfirmed,diffDeaths,diffRecovered)
+    }
+
+    val deathsRatio:Double
+        get() {
+            if(confirmed <= 0) return 0.0
+            return deaths.toDouble() / confirmed.toDouble()
+        }
+    val recoveredRatio:Double
+        get() {
+            if(confirmed <= 0) return 0.0
+            return recovered.toDouble() / confirmed.toDouble()
+        }
 }
 
 
