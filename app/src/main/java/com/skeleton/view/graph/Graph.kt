@@ -1,5 +1,6 @@
 package com.skeleton.view.graph
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -57,7 +58,7 @@ abstract class Graph@kotlin.jvm.JvmOverloads constructor(context: Context, attrs
 
     var values:List<Double> = ArrayList()
         set(value) {
-            currentValue = 0.0
+            isDrawing = false
             if(value.isEmpty()) return
             field = getModifyValues(value)
             if(!isImmediately) startAnimation(duration, delay)
@@ -66,7 +67,7 @@ abstract class Graph@kotlin.jvm.JvmOverloads constructor(context: Context, attrs
     fun resetValues(){
         currentValue = 0.0
         values = ArrayList()
-        postInvalidate()
+        //postInvalidate()
     }
 
     private var isImmediately = false
@@ -101,6 +102,7 @@ abstract class Graph@kotlin.jvm.JvmOverloads constructor(context: Context, attrs
 
     @CallSuper
     override fun onStart() {
+        isDrawing = true
         kind = paints.size
         isContinuous = (values.size == 1)
         size = Size(width, height)
@@ -124,4 +126,6 @@ abstract class Graph@kotlin.jvm.JvmOverloads constructor(context: Context, attrs
     override fun onCompleted(f: Int) {
         currentValue = targetValue
     }
+
+
 }

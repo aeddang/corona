@@ -45,10 +45,7 @@ class GraphPolygon@kotlin.jvm.JvmOverloads constructor(context: Context, attrs: 
         }
     }
 
-
-    @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
+    override fun onDrawAnimation(canvas: Canvas?) {
         if(kind == 0) return
         var rotate = 0.0f
         camera.save()

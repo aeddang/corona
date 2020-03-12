@@ -49,9 +49,7 @@ class GraphBox : RxFrameLayout {
     var graphDatas:List<GraphData> = listOf()
         set(value) {
             field = value
-            if(field.isEmpty()) {
-                return
-            }
+            if(field.size <= 2) return
             initGraph(value)
             if(type == BoxType.All || type == BoxType.Confirmed ) updateGraph(GraphType.Confirmed, value, type != BoxType.All)
             if(type == BoxType.All || type == BoxType.Deaths ) updateGraph(GraphType.Deaths, value, type != BoxType.All)
@@ -128,11 +126,12 @@ class GraphBox : RxFrameLayout {
         get(){
             if(graphDatas.isEmpty()) return null
             val n = min( currnentScrollIdx + lineNum , graphDatas.size-1)
+            if(graphDatas.size <= n ) return null
             return graphDatas[n]
         }
     val startGraphData:GraphData?
         get(){
-            if(graphDatas.isEmpty()) return null
+            if(graphDatas.size <= currnentScrollIdx ) return null
             val n = currnentScrollIdx
             return graphDatas[n]
         }
@@ -171,6 +170,7 @@ class GraphBox : RxFrameLayout {
         graphConfirmed.graphMargin = margin
         graphDeaths.graphMargin = margin
         graphRecovered.graphMargin = margin
+        graphDeaths.graphMargin = margin
 
 
 

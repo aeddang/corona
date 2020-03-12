@@ -65,7 +65,7 @@ class PageFactory {
 
     fun getPageOrientation(id: PageID): Int {
         return when (id) {
-            PageID.DATA -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            PageID.DATA, PageID.GRAPH -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             else -> ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
     }

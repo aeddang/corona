@@ -46,8 +46,7 @@ class GraphLine@kotlin.jvm.JvmOverloads constructor(context: Context, attrs: Att
 
 
     @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
+    override fun onDrawAnimation(canvas: Canvas?) {
         if(kind == 0) return
         camera.save()
         canvas?.save()
@@ -88,6 +87,7 @@ class GraphLine@kotlin.jvm.JvmOverloads constructor(context: Context, attrs: Att
         currentValue = 0.0
         targetValue = 1.0
         startValue = 0.0
+
     }
 
 

@@ -47,10 +47,7 @@ open class FrameAnimation@kotlin.jvm.JvmOverloads constructor(context: Context, 
         this.frame = 0
     }
 
-
-    @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
+    override fun onDrawAnimation(canvas: Canvas?) {
         bitmap?.let { bm ->
             if(dest == null)  setDest()
             dest?.let { canvas?.drawBitmap( bm , src, it, paint) }

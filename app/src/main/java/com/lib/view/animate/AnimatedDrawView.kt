@@ -1,6 +1,8 @@
 package com.lib.view.animate
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.CallSuper
@@ -16,7 +18,8 @@ abstract class AnimatedDrawView @kotlin.jvm.JvmOverloads constructor(context: Co
 
     private var disposable: Disposable? = null
     protected var fps: Long = 1000/60
-    private var frm:Int = 0
+    protected var frm:Int = 0 ; private set
+    protected var isDrawing = true
     protected var duration:Long = 0
     protected val currentTime:Long
         get() { return frm * fps}
@@ -30,7 +33,9 @@ abstract class AnimatedDrawView @kotlin.jvm.JvmOverloads constructor(context: Co
             .observeOn(Schedulers.computation())
             .subscribe {
                 frm ++
-                if(frm == 1) onStart()
+                if(frm == 1) {
+                    onStart()
+                }
                 onCompute(frm)
                 if(duration > 0) {
                     if (duration <= currentTime) {
@@ -47,18 +52,19 @@ abstract class AnimatedDrawView @kotlin.jvm.JvmOverloads constructor(context: Co
         disposable = null
     }
 
-    private fun run() {
-        frm++
-        onCompute(frm)
-        postInvalidate()
-    }
     abstract fun onStart()
     abstract fun onCompute( f:Int )
     abstract fun onCompleted( f:Int )
-
+    abstract fun onDrawAnimation(canvas: Canvas?)
     @CallSuper
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         stopAnimation()
+    }
+    @SuppressLint("DrawAllocation")
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        if (!isDrawing) return
+        onDrawAnimation(canvas)
     }
 }

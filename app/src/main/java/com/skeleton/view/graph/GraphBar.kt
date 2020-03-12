@@ -47,8 +47,7 @@ class GraphBar@kotlin.jvm.JvmOverloads constructor(context: Context, attrs: Attr
 
 
     @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
+    override fun onDrawAnimation(canvas: Canvas?) {
         if(kind == 0) return
         var sum = 0.0
         var start = 0.0

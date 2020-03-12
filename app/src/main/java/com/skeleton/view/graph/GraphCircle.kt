@@ -56,10 +56,8 @@ open class GraphCircle@kotlin.jvm.JvmOverloads constructor(context: Context, att
         }
     }
 
-    @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDrawAnimation(canvas: Canvas?) {
         if(kind == 0) return
-        super.onDraw(canvas)
         var start = 0.0
         var sum = 0.0
         camera.save()
