@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.SupportMapFragment
 import com.ironleft.corona.PageID
 import com.ironleft.corona.R
+import com.ironleft.corona.model.CountryData
 import com.ironleft.corona.page.viewmodel.ViewModelData
 import com.jakewharton.rxbinding3.view.clicks
 import com.lib.page.PagePresenter
@@ -48,8 +49,12 @@ class PageMap  : RxPageFragment(){
                         context?.let { CustomToast.makeToast(it, R.string.notice_need_permission).show() }
                         return
                     }
-                    val map = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
-                    map?.let { it.getMapAsync { gm-> mapBox.googleMap = gm } }
+                    try {
+                        val map = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
+                        map?.let { it.getMapAsync { gm-> mapBox.googleMap = gm } }
+                    } catch (e:Exception){
+                        context?.let { CustomToast.makeToast(it, R.string.error_google_map).show() }
+                    }
                 }
             })
 
@@ -72,6 +77,7 @@ class PageMap  : RxPageFragment(){
         }.apply { disposables.add(this) }
 
         mapBox.selectedLocationObservable.subscribe {
+            viewModel.repo.selectedCountry = CountryData(it.title, it.position)
             PagePresenter.getInstance<PageID>().pageChange(PageID.GRAPH)
         }.apply { disposables.add(this) }
     }

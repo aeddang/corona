@@ -17,6 +17,7 @@ import com.skeleton.rx.RxPageFragment
 import com.skeleton.view.alert.CustomToast
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.page_data.*
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -55,8 +56,13 @@ class PageData  : RxPageFragment(){
                         loadAllCountry()
                         return
                     }
-                    val map = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
-                    map?.let { it.getMapAsync { gm-> mapBox.googleMap = gm } }
+
+                    try {
+                        val map = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
+                        map?.let { it.getMapAsync { gm-> mapBox.googleMap = gm } }
+                    } catch (e:Exception){
+                        context?.let { CustomToast.makeToast(it, R.string.error_google_map).show() }
+                    }
                     loadAllCountry()
                 }
             })

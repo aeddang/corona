@@ -11,6 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.lang.Exception
 
 class SettingPreference(context: Context) : CachedPreference(context, PreferenceName.SETTING) {
     companion object {
@@ -26,18 +27,33 @@ class SettingPreference(context: Context) : CachedPreference(context, Preference
         pushDispose?.dispose()
         pushDispose = null
         if(isOn){
-            FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) return@OnCompleteListener
-                    task.result?.token?.let {
-                        Log.d(appTag, "set current push key $it")
-                        //settingPreference.setPushKey(it)
-                    }
-                })
-        }else{
-            pushDispose = Observable.just(isOn).subscribeOn(Schedulers.io()).subscribe  {
-                FirebaseInstanceId.getInstance().deleteInstanceId()
+            try {
+                FirebaseInstanceId.getInstance().instanceId
+                    .addOnCompleteListener(OnCompleteListener { task ->
+                        if (!task.isSuccessful) return@OnCompleteListener
+                        task.result?.token?.let {
+                            Log.d(appTag, "set current push key $it")
+                            //settingPreference.setPushKey(it)
+                        }
+                    })
+            } catch (e:Exception){
+                Log.d(appTag, "get push key error $e")
             }
+
+        }else{
+            pushDispose = Observable.just(isOn).subscribeOn(Schedulers.io()).subscribe (
+                {
+                    try {
+                        FirebaseInstanceId.getInstance().deleteInstanceId()
+                        Log.d(appTag, "delete push key")
+                    } catch (e:Exception){
+                        Log.d(appTag, "delete push key error $e")
+                    }
+
+                },{
+                    Log.d(appTag, "delete push key error $it")
+                }
+            )
         }
     }
     fun getPushAble(): Boolean = get(PUSH_ABLE, true) as Boolean

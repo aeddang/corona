@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">WorldVirus\nWatch</string>
     <string name="notice_app_exit">Press again to exit.</string>
+
     <string name="notice_need_permission">If you do not grant permission, some functions are not be able to used.</string>
     <string name="notice_empty_data">No Data</string>
     <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">Cancel</string>
     <string name="error_data_loading">Data loading error</string>
-
+    <string name="error_google_map">Google Maps not available.</string>
     <string name="key_google_map">AIzaSyAUTgR2I8bbVX_8XHcoMRxkLlqx4Uz6xTs</string>
     <string name="notification_channel_id">1</string>
     <string name="fcm_title">FCM Message</string>
