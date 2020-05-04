@@ -11,6 +11,7 @@ object ApiConst {
 
 
     const val API_SMODE_NEWS = "phopick"
+    const val API_SMODE_NOTICES = "pushmsg"
     const val API_SMODE_COUNTRY = "basic"
     const val API_SMODE_GRAPH = "basic_list"
     const val API_SMODE_GRAPH_TOTAL = "graph_daily_total"

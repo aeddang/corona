@@ -1,5 +1,7 @@
 package com.ironleft.corona.page
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.ironleft.corona.BuildConfig
@@ -43,6 +45,19 @@ class PageSetup  : RxPageFragment() {
         switchPush.isChecked =  viewModel.repo.setting.getPushAble()
         switchPush.checkedChanges().subscribe {
             viewModel.repo.setting.putPushAble(it)
+        }.apply { disposables?.add(this) }
+
+        btnNotice.clicks().subscribe {
+            PagePresenter.getInstance<PageID>().pageChange(PageID.NOTICES)
+        }.apply { disposables?.add(this) }
+
+        btnPc.clicks().subscribe {
+            val uris = Uri.parse("https://worldviruswatch.com")
+            val intents = Intent(Intent.ACTION_VIEW, uris)
+            val b = Bundle()
+            b.putBoolean("new_window", true)
+            intents.putExtras(b)
+            context?.startActivity(intents)
         }.apply { disposables?.add(this) }
 
         btnBack.clicks().subscribe {

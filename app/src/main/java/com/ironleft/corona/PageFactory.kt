@@ -77,6 +77,7 @@ class PageFactory {
             PageID.INTRO -> PageIntro()
             PageID.DATA -> PageData()
             PageID.NEWS -> PageNews()
+            PageID.NOTICES -> PageNotices()
             PageID.GRAPH -> PageGraph()
             PageID.MAP -> PageMap()
             PageID.SETUP -> PageSetup()
@@ -100,5 +101,6 @@ enum class PageID(val resId: Int, override var position: Int = 9999) : PagePosit
     GRAPH(R.string.page_graph,103),
     MAP(R.string.page_map,102),
     SETUP(R.string.page_setup,301),
+    NOTICES(R.string.page_notices,401),
     POPUP_WEBVIEW(R.string.popup_webview)
 }

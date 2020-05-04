@@ -134,6 +134,7 @@ data class NewsData(val id:String){
     var date:String = "" ; private set
     var pageContent:String = "" ; private set
     var pageUrl:String = "" ; private set
+    var isOpen = false
     fun setData(data:DataNews):NewsData{
         desc = data.title ?: ""
         date = data.post_datetime ?: ""

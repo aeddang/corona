@@ -44,12 +44,13 @@ class Repository(
     var graphIncresedRecoveredMax = 0L ; private set
     var graphDatas :List<GraphData>? = null ; private set
     var newsDatas:ArrayList<NewsData>? = null ; private set
+    var noticesDatas:ArrayList<NewsData>? = null ; private set
 
     val virusConfirmedDataObservable = PublishSubject.create<VirusConfirmedData>()
     val virusConfirmedCountryDataObservable = PublishSubject.create<VirusConfirmedData>()
     val graphDatasObservable = PublishSubject.create<List<GraphData>>()
     val newsDatasObservable = PublishSubject.create<ArrayList<NewsData>>()
-
+    val noticesDatasObservable = PublishSubject.create<ArrayList<NewsData>>()
     fun clearGraphs(){
         graphDatas = null
         graphIncresedMax = 0L
@@ -91,6 +92,20 @@ class Repository(
                 val addDatas = result.list.map { NewsData(UUID.randomUUID().toString()).setData(it) }
                 newsDatas?.addAll(addDatas)
                 newsDatasObservable.onNext(newsDatas!!)
+            },{
+                CustomToast.makeToast(ctx, R.string.error_data_loading).show()
+            }
+        ).apply { disposables.add(this) }
+    }
+
+    fun clearNotices(){ noticesDatas = null }
+    fun getNotices(page:Int = 0, perPage:Int = 100){
+        if( noticesDatas == null ) noticesDatas = arrayListOf()
+        RxObservableConverter.forNetwork( api.getNews(ApiConst.API_SMODE_NOTICES, page+1, perPage) ).subscribe(
+            {result->
+                val addDatas = result.list.map { NewsData(UUID.randomUUID().toString()).setData(it) }
+                noticesDatas?.addAll(addDatas)
+                noticesDatasObservable.onNext(noticesDatas!!)
             },{
                 CustomToast.makeToast(ctx, R.string.error_data_loading).show()
             }

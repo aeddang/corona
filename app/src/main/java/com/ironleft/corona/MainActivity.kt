@@ -35,10 +35,21 @@ class MainActivity : PageActivity<PageID>(), Rx {
     override fun onCreatedView() {
         AndroidInjection.inject(this)
         CommonUtil.getApplicationSignature(this)
-        PagePresenter.getInstance<PageID>().pageStart(PageID.INTRO)
         val d = repository.selectedCountryObservable.subscribe { tab.title = it.title }
         if(repository.setting.getPushAble()) repository.setting.putPushAble(true)
+        PagePresenter.getInstance<PageID>().pageStart(PageID.INTRO)
+    }
 
+    override fun onPageInit() {
+        super.onPageInit()
+        if (intent != null && intent.extras != null) PagePresenter.getInstance<PageID>().pageStart(PageID.NOTICES)
+        else PagePresenter.getInstance<PageID>().pageStart(PageID.DATA)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if(!isPageInit) return
+        PagePresenter.getInstance<PageID>().pageStart(PageID.NOTICES)
     }
 
     override fun onDestroyedView() {
@@ -72,6 +83,7 @@ class MainActivity : PageActivity<PageID>(), Rx {
         if (isFullScreen) CommonUtil.enterFullScreenMode(this)
         else CommonUtil.enterDefaultMode(this)
     }
+
 
     override fun onResume() {
         super.onResume()

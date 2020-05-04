@@ -14,6 +14,13 @@ interface ApiRequest{
     ): Single<Lists<DataNews>>
 
     @GET(ApiConst.API_GOOGLE)
+    fun getNotices(
+        @Query(ApiConst.FIELD_SMODE) smode: String?,
+        @Query(ApiConst.FIELD_PAGE) page: Int,
+        @Query(ApiConst.FIELD_PER_PAGE) per_page: Int
+    ): Single<Lists<DataNews>>
+
+    @GET(ApiConst.API_GOOGLE)
     fun getAllDatas(
         @Query(ApiConst.FIELD_SMODE) smode: String?
     ): Single<List<DataCountry>>

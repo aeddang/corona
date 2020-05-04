@@ -45,4 +45,8 @@ internal abstract class AndroidBindingModule {
     @ContributesAndroidInjector(modules = [PageModule::class])
     internal abstract fun bindPageSetup(): PageSetup
 
+    @PageScope
+    @ContributesAndroidInjector(modules = [PageModule::class])
+    internal abstract fun bindPageNotices(): PageNotices
+
 }

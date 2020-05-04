@@ -105,6 +105,8 @@ class PageGraph  : RxPageFragment(){
         countryBox.selectLocationObservable.subscribe {
             loadCountry(it)
         }.apply { disposables.add(this) }
+
+
     }
 
     private fun updateCountryBox(){

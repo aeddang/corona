@@ -41,11 +41,14 @@ abstract class PageActivity<T> : AppCompatActivity(), View<T>, Page, PageDelegat
     @AnimRes protected open fun getPopupOut(): Int { return android.R.anim.fade_in }
     protected open fun getSharedChange():Any { return ChangeBounds() }
 
+    protected var isPageInit = false
     protected var currentPage: T? = null
     protected var currentTopPage: T? = null
     get() {
         return if( popups.isEmpty() ) currentPage else popups.last()
     }
+
+
     protected var currentPageParam: Map<String, Any?>? = null
     private val historys = Stack< Pair< T, Map< String, Any? >? >> ()
     private val popups = ArrayList<T>()
@@ -240,19 +243,10 @@ abstract class PageActivity<T> : AppCompatActivity(), View<T>, Page, PageDelegat
     protected open fun onBackPressedAction() {
         var backPage:Pair< T, Map< String, Any? >? >? = null
         if( historys.isEmpty()) {
-            onExitAction()
+            if( currentPage == null) pagePresenter.goHome()
+            else if( pagePresenter.model.isHome(currentPage!!)) onExitAction()
+            else pagePresenter.goHome()
             return
-            /*
-            if(currentPage == null){
-                onExitAction()
-                return
-            }
-            else if( pagePresenter.model.isHome(currentPage!!)) {
-                onExitAction()
-                return
-            }
-            */
-
         }else {
             backPage = historys.pop()
         }
@@ -293,6 +287,7 @@ abstract class PageActivity<T> : AppCompatActivity(), View<T>, Page, PageDelegat
     protected open fun isChangedCategory(prevId:T?, currentId:T?):Boolean = false
 
     abstract fun getPageByID(id:T): PageFragment
+    override fun onPageInit() { isPageInit = true }
     final override fun onPageStart(id:T) { pageChange(id, null, true) }
     final override fun onPageChange(id:T, param:Map<String, Any?>?, sharedElement: android.view.View?,  transitionName:String?) {
         pageChange(id, param, false, sharedElement,  transitionName )

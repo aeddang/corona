@@ -17,6 +17,43 @@
         android:tint="@color/color_white"
         android:scaleType="fitCenter"
         />
+
+    <Button
+        android:id="@+id/btnNotice"
+        style="@style/font_regular"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/page_setup_notice"
+        android:minWidth="0dp"
+        android:textAllCaps="false"
+        android:textColor="@color/color_white"
+        android:background="@drawable/effect_rect_ripple"
+        android:layout_marginTop="@dimen/margin_light"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_light"
+        android:alpha="0.2"
+        android:background="@color/color_gray" />
+    <Button
+        android:id="@+id/btnPc"
+        style="@style/font_regular"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/page_setup_pc"
+        android:minWidth="0dp"
+        android:textAllCaps="false"
+        android:textColor="@color/color_white"
+        android:background="@drawable/effect_rect_ripple"
+        android:layout_marginTop="@dimen/margin_light"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_light"
+        android:alpha="0.2"
+        android:background="@color/color_gray" />
     <Switch
         android:id="@+id/switchPush"
         android:layout_width="wrap_content"
@@ -30,26 +67,32 @@
         android:switchPadding="@dimen/margin_regular"
         android:layout_marginTop="@dimen/margin_regular"
         android:text="@string/page_setup_push" />
-    <TextView
-        android:id="@+id/textVersion"
-        style="@style/font_regular"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="vs 1.0.0"
-        android:textColor="@color/color_gray"
-        android:layout_marginTop="@dimen/margin_regular"
-        />
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
+    <TextView
+        style="@style/font_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textAlignment="center"
+        android:text="@string/copy_right"
+        android:textColor="@color/color_gray" />
     <ImageView
+        android:layout_marginTop="@dimen/margin_regular"
         android:layout_width="match_parent"
         android:layout_height="@dimen/icon_regular"
         android:layout_gravity="bottom"
         android:src="@drawable/logo_bottom"
         android:scaleType="fitCenter"/>
+    <TextView
+        android:id="@+id/textVersion"
+        style="@style/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="vs 1.0.0"
+        android:textColor="@color/color_gray"
+        android:layout_marginTop="@dimen/margin_regular" />
 </LinearLayout>

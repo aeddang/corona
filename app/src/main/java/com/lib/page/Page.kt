@@ -58,6 +58,7 @@ interface Presenter<T> {
     fun closePopup(id:T,isAni:Boolean = true): Presenter<T>
     fun closeAllPopup(isAni:Boolean = true): Presenter<T>
     fun openPopup(id:T,param:Map<String, Any?>? = null, sharedElement:View? = null, transitionName:String? = null): Presenter<T>
+    fun pageInit(): Presenter<T>
     fun pageStart(id:T): Presenter<T>
     fun pageChange(id:T,param:Map<String, Any?>? = null, sharedElement:View? = null, transitionName:String? = null): Presenter<T>
     fun hasPermissions( permissions: Array<String> ): Boolean
@@ -79,6 +80,7 @@ interface Activity<T> {
 
 interface View<T> {
     fun onClearPageHistory(id:T?)
+    fun onPageInit()
     fun onPageStart(id:T)
     fun onBack(id:T)
     fun onBack()

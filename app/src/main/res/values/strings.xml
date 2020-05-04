@@ -17,9 +17,12 @@
     <string name="page_graph">Graph</string>
     <string name="page_map">Map</string>
     <string name="page_news">News</string>
+    <string name="page_notices">Notices</string>
     <string name="popup_webview">Webview</string>
     <string name="page_setup">Setup</string>
 
+    <string name="page_setup_notice">Notice</string>
+    <string name="page_setup_pc">PC Version</string>
     <string name="page_setup_push">Push</string>
 
     <string name="cp_header_title">World Virus Watch</string>
@@ -30,7 +33,7 @@
 
     <string name="cp_data_box_title">Confirmed</string>
     <string name="cp_data_box_deaths">Deaths</string>
-    <string name="cp_data_box_recovered">Recovered</string>
-
+    <string name="cp_data_box_recovered">Recovered</string>\
     <string name="cp_map_title">Map</string>
+    <string name="copy_right">Copyright © 2020 World Virus Watch all rights reserved.\nworldviruswatch@ironraft.com</string>
 </resources>

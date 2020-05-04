@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_deep">
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="@dimen/icon_regular"
+        android:layout_height="@dimen/icon_regular"
+        android:background="@drawable/effect_circle_ripple"
+        android:layout_margin="@dimen/margin_regular"
+        android:layout_gravity="start"
+        android:src="@drawable/ic_arrow_left"
+        android:tint="@color/color_white"
+        android:scaleType="fitCenter"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="@dimen/margin_header"
+        android:layout_marginLeft="@dimen/margin_regular"
+        android:layout_marginRight="@dimen/margin_regular"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loadingBar"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="@dimen/loading_small"
+        android:layout_height="@dimen/loading_small"
+        android:layout_marginBottom="@dimen/margin_header"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/sp_progress"
+        />
+</FrameLayout>

@@ -71,6 +71,10 @@ class PagePresenter<T>(var view: View<T>?, internal val model: Model<T>): Presen
         return this
     }
 
+    override fun pageInit(): Presenter<T> {
+        view?.onPageInit()
+        return this
+    }
     override fun pageStart(id:T): Presenter<T> {
         view?.onPageStart(id)
         return this

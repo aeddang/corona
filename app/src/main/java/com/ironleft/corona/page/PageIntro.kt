@@ -32,7 +32,7 @@ class PageIntro  : RxPageFragment() {
         Observable.interval(1500, TimeUnit.MILLISECONDS)
             .take(1)
             .observeOn(AndroidSchedulers.mainThread()).subscribe {
-                PagePresenter.getInstance<PageID>().pageChange(PageID.DATA)
+                PagePresenter.getInstance<PageID>().pageInit()
             }.apply { disposables.add(this) }
     }
 
